@@ -1,0 +1,6 @@
+[package]
+name = "dna_encoder"
+version = "0.1.0"
+authors = ["kr-b <26582138+kr-b@users.noreply.github.com>"]
+
+[dependencies]
