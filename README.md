@@ -21,7 +21,9 @@ Any 4 character non-repeating permutation of the four DNA bases (A, C, G and T)
 Basically means this:
 
 >A  C  G  T
+
 >3<sup>3</sup> 3<sup>2</sup> 3<sup>1</sup> 3<sup>0</sup>
+
 >[] [] [] []
 
 ## Examples
