@@ -29,5 +29,23 @@ Basically means this:
 ## Examples
 This converts a string into 4 bit nibbles of DNA bases
 ```
-cargo run str CGAT
+$ cargo run str CGAT
+[<]  Input: Hello!
+[>] Output: GCAC GAGG GATC GATC GATT CACG
 ```
+This converts an integer into a long DNA sequence
+```
+$ cargo run int ACGT
+[<]  Input: 2048
+[>] Output: GAAAAA
+$ cargo run integer ACGT
+[<]  Input: 100
+[>] Output: CGCA
+
+```
+
+## TODO
+- [x] Encoding
+- [ ] Decoding
+- [ ] Deciding: Automatic key detection
+- [ ] Put this data on actual DNA (never gonna happen but I want this on the list)
