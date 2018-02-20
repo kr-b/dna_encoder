@@ -1,4 +1,4 @@
-# DNA Encoder
+# DNA Encoder [![forthebadge](https://forthebadge.com/images/badges/built-with-science.svg)](https://forthebadge.com)
 ## Rust program to convert data into a DNA sequence
 
 *DISCLAIMER:* This isn't legit or anything, just a small project I wanted to try out..
@@ -20,11 +20,10 @@ Any 4 character non-repeating permutation of the four DNA bases (A, C, G and T)
 #### Example "ACGT"
 Basically means this:
 
->A  C  G  T
-
->3<sup>3</sup> 3<sup>2</sup> 3<sup>1</sup> 3<sup>0</sup>
-
->[] [] [] []
+| A | C | G | T |
+|---|---|---|---|
+| 4<sup>3</sup> | 4<sup>2</sup> | 4<sup>1</sup> | 4<sup>0</sup> |
+  
 
 ## Examples
 This converts a string into 4 bit nibbles of DNA bases
