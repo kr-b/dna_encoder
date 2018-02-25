@@ -22,8 +22,12 @@
 
 use std::io::{self, Write};
 
-enum InputType {
+enum PlainTextType {
     Str, Int
+}
+
+enum DnaAction {
+    Encode, Decode
 }
 
 fn main() {
@@ -36,11 +40,19 @@ fn main() {
         usage(&args[0]); std::process::exit(1);
     }
 
-    let        key = args[2].clone();
+    let        key = args[3].clone();
     let mut  input = String::new();
-    let     intype = match &*args[1] {
-        "str" | "string"  => InputType::Str,
-        "int" | "integer" => InputType::Int,
+    let     action = match &*args[1] {
+        "e" | "encode" => DnaAction::Encode,
+        "d" | "decode" => DnaAction::Decode,
+        _ => {
+            println!("[!] Invalid option");
+            usage(&args[0]); std::process::exit(1);
+        }
+    };
+    let     intype = match &*args[2] {
+        "str" | "string"  => PlainTextType::Str,
+        "int" | "integer" => PlainTextType::Int,
         _ => {
             println!("[!] Invalid input type specified");
             usage(&args[0]); std::process::exit(1);
@@ -58,19 +70,21 @@ fn main() {
     print!("[<]  Input: "); io::stdout().flush().unwrap();
     io::stdin().read_line(&mut input).unwrap();
 
-    let output = dna_encode(&input, intype, key);
+    let output = match action {
+        DnaAction::Encode => dna_encode(&input, intype, key),
+        DnaAction::Decode => dna_decode(&input, key),
+        // _ => { panic! ("[!] Unexpected error matching action")}
+    };
 
     println!("[>] Output: {}", output);
 }
 
-fn dna_encode(input: &str, intype: InputType, key: Vec<char>) -> String {
+
+fn dna_encode(input: &str, intype: PlainTextType, key: Vec<char>) -> String {
     match intype {
-        InputType::Str => {
-            dna_encode_string(input, key)
-        }
-        InputType::Int => {
-            dna_encode_integer(input.trim().parse::<u32>().unwrap(), key)
-        }
+        PlainTextType::Str => dna_encode_string(input, key),
+        PlainTextType::Int => dna_encode_integer(input.trim().parse::<u32>().unwrap(), key),
+         // _ => { panic! ("[!] Unexpected error matching intype")}
     }
 }
 
@@ -103,12 +117,36 @@ fn dna_encode_integer(input: u32, key: Vec<char>) -> String {
         n /= 4;
     }
 
-    // Bit ugly, but it just reverses the string and returns it
     reverse_string(&out)
 }
 
+fn dna_decode(input: &str,  key: Vec<char>) -> String {
+    let mut out = String::new();
+
+    let mut v: Vec<u8> = input.trim_right().as_bytes().to_vec();
+
+    // Unask input
+    for bit in &mut v {
+        if *bit != ' ' as u8 {
+            *bit = match *bit as char {
+                c @ 'A' |
+                c @ 'C' |
+                c @ 'G' |
+                c @ 'T'  => key.iter().position(|&x| x == c).unwrap() as u8,
+                _ => {
+                    panic!("[!] Invalid DNA sequence");
+                },
+            }
+        };
+    }
+
+    // TODO: Decode it
+
+    out
+}
+
 fn usage(path: &str) {
-    println!("[i] Usage: {} <input format: string/int> <key>", path);
+    println!("[i] Usage: {} <encode/decode> <type: string/int> <key>", path);
     println!("[i] Example to convert a string:");
     println!("[-] {} str CGAT", path);
     println!("[i] Example to convert an integer:");
