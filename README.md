@@ -6,7 +6,7 @@ It's simply a base 4 converter that masks the bits with a set key which is the l
 
 ## Usage
 ```
-cargo run <input type> <key>
+cargo run <encode/decode> <plain text type> <key>
 ```
 Then input your data through the app or pipe it in
 
@@ -23,21 +23,21 @@ Basically means this:
 | A | C | G | T |
 |---|---|---|---|
 | 4<sup>3</sup> | 4<sup>2</sup> | 4<sup>1</sup> | 4<sup>0</sup> |
-  
+
 
 ## Examples
 This converts a string into 4 bit nibbles of DNA bases
 ```
-$ cargo run str CGAT
+$ cargo run enc str CGAT
 [<]  Input: Hello!
 [>] Output: GCAC GAGG GATC GATC GATT CACG
 ```
 This converts an integer into a long DNA sequence
 ```
-$ cargo run int ACGT
+$ cargo run e int ACGT
 [<]  Input: 2048
 [>] Output: GAAAAA
-$ cargo run integer ACGT
+$ cargo run encode integer ACGT
 [<]  Input: 100
 [>] Output: CGCA
 
