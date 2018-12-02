@@ -51,6 +51,6 @@ $ cargo run encode integer ACGT
 
 ## TODO
 - [x] Encoding
-- [ ] Decoding
+- [x] Decoding
 - [ ] Decoding: Automatic key detection
 - [ ] Put this data on actual DNA (never gonna happen but I want this on the list)
