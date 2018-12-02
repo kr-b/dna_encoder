@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-use std::io::{self, Write};
+use std::io;//::{self, Write};
 
 enum PlainTextType {
     Str, Int
@@ -78,18 +78,20 @@ fn main() {
             PlainTextType::Int => {
                 input = args[4].clone();
             },
-        }
+        };
     } else {
-        print!("[<]  Input: "); io::stdout().flush().unwrap();
+        //print!("[<]  Input: "); io::stdout().flush().unwrap();
         io::stdin().read_line(&mut input).unwrap();
-    }
+    };
+
     let output = match action {
         DnaAction::Encode => dna_encode(&input, intype, key),
         DnaAction::Decode => dna_decode(&input, intype, key),
         // _ => { panic! ("[!] Unexpected error matching action")}
     };
 
-    println!("[>] Output: {}", output);
+    //println!("[>] Output: {}", output);
+    println!("{}", output);
 }
 
 
@@ -134,8 +136,6 @@ fn dna_encode_integer(input: u32, key: Vec<char>) -> String {
 }
 
 fn dna_decode(input: &str, intype: PlainTextType, key: Vec<char>) -> String {
-    let mut out = String::new();
-
     let mut v: Vec<u8> = input.trim_right().as_bytes().to_vec();
 
     // Unask input
@@ -155,13 +155,13 @@ fn dna_decode(input: &str, intype: PlainTextType, key: Vec<char>) -> String {
     v.reverse();
 
     match intype {
-        PlainTextType::Str => dna_decode_string(v, key),
-        PlainTextType::Int => dna_decode_integer(v, key).to_string(),
+        PlainTextType::Str => dna_decode_string(v),
+        PlainTextType::Int => dna_decode_integer(v).to_string(),
          // _ => { panic! ("[!] Unexpected error matching intype")}
     }
 }
 
-fn dna_decode_integer(input: Vec<u8>, key: Vec<char>) -> u32 {
+fn dna_decode_integer(input: Vec<u8>) -> u32 {
     let mut out = 0 as u32;
     let base: u32 = 4;
     for (i, bit) in input.iter().enumerate() {
@@ -171,7 +171,7 @@ fn dna_decode_integer(input: Vec<u8>, key: Vec<char>) -> u32 {
     out
 }
 
-fn dna_decode_string(input: Vec<u8>, key: Vec<char>) -> String {
+fn dna_decode_string(input: Vec<u8>) -> String {
     let mut out = String::new();
     let mut nibble = vec![];
     let mut letter: char;
@@ -184,7 +184,7 @@ fn dna_decode_string(input: Vec<u8>, key: Vec<char>) -> String {
             for x in &nibble {
                 println!("{}",x);
             }
-            letter = u32_to_u8_array(dna_decode_integer(nibble.clone(), key.clone()))[3] as char;
+            letter = u32_to_u8_array(dna_decode_integer(nibble.clone()))[3] as char;
             println!("{}", letter);
             out.push(letter);
             nibble.clear();
