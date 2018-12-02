@@ -29,7 +29,6 @@ Therefore, the number 37 with key ACGT would be represented like this:
 | 4<sup>3</sup> | 4<sup>2</sup> | 4<sup>1</sup> | 4<sup>0</sup> |
 |---|---|---|---|
 | 0 | 2 | 1 | 1 |
-|---|---|---|---|
 | A | G | C | C |
 
 ## Examples
