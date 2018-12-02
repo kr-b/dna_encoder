@@ -20,10 +20,17 @@ Any 4 character non-repeating permutation of the four DNA bases (A, C, G and T)
 #### Example "ACGT"
 Basically means this:
 
-| A | C | G | T |
+| 0 | 1 | 2 | 3 |
 |---|---|---|---|
-| 4<sup>3</sup> | 4<sup>2</sup> | 4<sup>1</sup> | 4<sup>0</sup> |
+| A | C | G | T |
 
+Therefore, the number 37 with key ACGT would be represented like this:
+
+| 4<sup>3</sup> | 4<sup>2</sup> | 4<sup>1</sup> | 4<sup>0</sup> |
+|---|---|---|---|
+| 0 | 2 | 1 | 1 |
+|---|---|---|---|
+| A | G | C | C |
 
 ## Examples
 This converts a string into 4 bit nibbles of DNA bases
